@@ -3,12 +3,11 @@ class logstash::escleaner(
 )
 {
   file { '/usr/local/bin/logstash-delete-index':
-    require => Package['logstash'],
+    require => [Package['logstash'], Package['libjson-perl']]
     source  => 'puppet:///modules/logstash/logstash-delete-index',
     owner   => root,
     group   => logstash,
-    mode    => '0754',
-    require => Package['libjson-perl']
+    mode    => '0754'
   }
 
   package { 'libjson-perl': }
