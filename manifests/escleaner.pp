@@ -8,7 +8,10 @@ class logstash::escleaner(
     owner   => root,
     group   => logstash,
     mode    => '0754',
+    require => Package['libjson-perl']
   }
+
+  package { 'libjson-perl': }
 
   cron { 'clean-logstash-indexes':
     command => "/usr/local/bin/logstash-delete-index -d ${retention} -r",
